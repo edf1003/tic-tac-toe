@@ -1,22 +1,8 @@
 # Tic Tac Toe  
-![TicTacToeScreenshot](https://tic-tac-toe-ed.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.0c123456.png&w=256&q=75)  
 
 Esta es una aplicación web desarrollada únicamente en **Next.js** y desplegada en **Vercel**. La aplicación es un juego interactivo de **Tic Tac Toe (Tres en raya)** para dos jugadores, jugable directamente en el navegador sin necesidad de backend ni base de datos.  
 
 La aplicación se encuentra actualmente desplegada y se puede jugar en: [https://tic-tac-toe-ed.vercel.app/](https://tic-tac-toe-ed.vercel.app/)
-
-## 🚀 Inicio rápido (VSC)
-- Clona el repositorio.  
-- Instala Node.js (recomendado LTS 18.16.0).  
-- Instala las dependencias utilizando el comando:  
-  ```bash
-  npm install
-  ```  
-- Inicia la aplicación utilizando el comando:  
-  ```bash
-  npm run dev
-  ```  
-- Abre tu navegador web y accede a [http://localhost:3000](http://localhost:3000) para jugar Tic Tac Toe.
 
 ## 📖 Descripción
 Esta aplicación web permite a **dos jugadores** disfrutar del clásico juego de **Tic Tac Toe** directamente en el navegador.  
