@@ -1,12 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaRegCircle } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
+import PlayerForm from './components/PlayerForm';
+import GamePopup from './components/GamePopup';
+import PlayersRanking from './components/PlayersRanking';
+import { Player, GameResult } from '../models/models';
+import { saveGameResult, getGameHistory } from '../models/storage';
 
 export default function Home() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState(true);
+  const [players, setPlayers] = useState<[Player, Player] | null>(null);
+  const [gameHistory, setGameHistory] = useState<GameResult[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    setGameHistory(getGameHistory());
+  }, []);
 
   const handleClick = (index: number) => {
     if (board[index] || calculateWinner(board)) return;
@@ -15,14 +27,29 @@ export default function Home() {
     newBoard[index] = isXNext ? 'X' : 'O';
     setBoard(newBoard);
     setIsXNext(!isXNext);
+
+    const winner = calculateWinner(newBoard);
+    const isDraw = !winner && newBoard.every(cell => cell !== null);
+
+    if ((winner || isDraw) && players) {
+      const result: GameResult = {
+        winner: winner ? players[winner === 'X' ? 0 : 1] : null,
+        date: new Date().toLocaleString(),
+        players: players,
+      };
+      saveGameResult(result);
+      setGameHistory([result, ...gameHistory]);
+      setShowPopup(true);
+    }
   };
 
   const resetGame = () => {
     setBoard(Array(9).fill(null));
     setIsXNext(true);
+    setShowPopup(false);
   };
 
-  const calculateWinner = (board: number[]) => {
+  const calculateWinner = (board: (string | null)[]) => {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -45,84 +72,72 @@ export default function Home() {
 
   const winner = calculateWinner(board);
 
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <h1 style={{ fontSize: '30px' }} className='mt-5'>
-        Tic Tac Toe
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          marginTop: '30px',
-        }}
-      >
-        <h2>
-          {winner
-            ? `Ganador: ${winner}`
-            : `Siguiente jugador: ${isXNext ? 'X' : 'O'}`}
-        </h2>
-        <div className='board'>
-          {board.map((cell, index) => (
-            <div
-              key={index}
-              className='cell'
-              onClick={() => handleClick(index)}
-            >
-              {cell === 'X' ? (
-                <ImCross style={{ color: 'red', fontSize: '50px' }} />
-              ) : cell === 'O' ? (
-                <FaRegCircle style={{ color: 'green', fontSize: '50px' }} />
-              ) : null}
-            </div>
-          ))}
+  if (!players) {
+    return (
+      <div className="min-h-screen flex justify-center items-center p-4">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20" />
         </div>
-        {winner && (
-          <button
-            style={{
-              marginTop: '20px',
-              padding: '10px 20px',
-              fontSize: '16px',
-              backgroundColor: 'grey',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-            }}
-            onClick={resetGame}
-          >
-            Reiniciar
-          </button>
-        )}
+        <PlayerForm onPlayersSubmit={setPlayers} gameHistory={gameHistory} />
       </div>
-      <style jsx>{`
-        .board {
-          display: grid;
-          grid-template-columns: repeat(3, 100px);
-          grid-template-rows: repeat(3, 100px);
-          gap: 10px;
-          margin-top: 20px;
-        }
+    );
+  }
 
-        .cell {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 100px;
-          background-color: #f0f0f0;
-          border: 2px solid #333;
-          border-radius: 10px;
-          cursor: pointer;
-          font-size: 50px;
-        }
+  return (
+    <div className="min-h-screen text-white relative overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20" />
+      </div>
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <h1 className="text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+          Tic Tac Toe
+        </h1>
+        <div className="flex flex-col items-center">
+          <h2 className="text-xl mb-4">
+            {winner
+              ? `Ganador: ${players[winner === 'X' ? 0 : 1].name}`
+              : `Turno de: ${players[isXNext ? 0 : 1].name}`}
+          </h2>
 
-        .cell:hover {
-          background-color: #e0e0e0;
-        }
-      `}</style>
+          <div className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
+            {board.map((cell, index) => (
+              <div
+                key={index}
+                onClick={() => handleClick(index)}
+                className={`w-24 h-24 rounded-xl flex items-center justify-center cursor-pointer
+                          board-cell ${cell === 'X' ? 'x' : cell === 'O' ? 'o' : ''}`}
+              >
+                {cell === 'X' ? (
+                  <ImCross className="text-5xl piece-animation" />
+                ) : cell === 'O' ? (
+                  <FaRegCircle className="text-5xl piece-animation" />
+                ) : null}
+              </div>
+            ))}
+          </div>
+
+          {winner && (
+            <button
+              onClick={resetGame}
+              className="px-6 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg font-bold
+                      transition-colors duration-200"
+            >
+              Nuevo Juego
+            </button>
+          )}
+
+          {gameHistory.length > 0 && (
+            <PlayersRanking gameHistory={gameHistory} />
+          )}
+        </div>
+      </div>
+      {showPopup && (
+        <GamePopup
+          winner={winner ? players[winner === 'X' ? 0 : 1].name : null}
+          isDraw={!winner && board.every(cell => cell !== null)}
+          onNewGame={resetGame}
+        />
+      )}
     </div>
   );
 }
-
