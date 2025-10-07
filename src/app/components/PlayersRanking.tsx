@@ -36,7 +36,7 @@ export default function PlayersRanking({ gameHistory }: PlayersRankingProps) {
       // Primero ordenar por número de victorias
       const winsDiff = b.wins - a.wins;
       if (winsDiff !== 0) return winsDiff;
-      
+
       // Si tienen las mismas victorias, ordenar por menor número de partidas
       return a.matches - b.matches;
     });

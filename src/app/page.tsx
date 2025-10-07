@@ -29,7 +29,7 @@ export default function Home() {
     setIsXNext(!isXNext);
 
     const winner = calculateWinner(newBoard);
-    const isDraw = !winner && newBoard.every(cell => cell !== null);
+    const isDraw = !winner && newBoard.every((cell) => cell !== null);
 
     if ((winner || isDraw) && players) {
       const result: GameResult = {
@@ -74,9 +74,9 @@ export default function Home() {
 
   if (!players) {
     return (
-      <div className="min-h-screen flex justify-center items-center p-4">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20" />
+      <div className='min-h-screen flex justify-center items-center p-4'>
+        <div className='absolute inset-0 z-0'>
+          <div className='absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20' />
         </div>
         <PlayerForm onPlayersSubmit={setPlayers} gameHistory={gameHistory} />
       </div>
@@ -84,33 +84,35 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20" />
+    <div className='min-h-screen text-white relative overflow-hidden'>
+      <div className='absolute inset-0 z-0'>
+        <div className='absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20' />
       </div>
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <h1 className="text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+      <div className='container mx-auto px-4 py-8 relative z-10'>
+        <h1 className='text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400'>
           Tic Tac Toe
         </h1>
-        <div className="flex flex-col items-center">
-          <h2 className="text-xl mb-4">
+        <div className='flex flex-col items-center'>
+          <h2 className='text-xl mb-4'>
             {winner
               ? `Ganador: ${players[winner === 'X' ? 0 : 1].name}`
               : `Turno de: ${players[isXNext ? 0 : 1].name}`}
           </h2>
 
-          <div className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
+          <div className='grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto'>
             {board.map((cell, index) => (
               <div
                 key={index}
                 onClick={() => handleClick(index)}
                 className={`w-24 h-24 rounded-xl flex items-center justify-center cursor-pointer
-                          board-cell ${cell === 'X' ? 'x' : cell === 'O' ? 'o' : ''}`}
+                          board-cell ${
+                            cell === 'X' ? 'x' : cell === 'O' ? 'o' : ''
+                          }`}
               >
                 {cell === 'X' ? (
-                  <ImCross className="text-5xl piece-animation" />
+                  <ImCross className='text-5xl piece-animation' />
                 ) : cell === 'O' ? (
-                  <FaRegCircle className="text-5xl piece-animation" />
+                  <FaRegCircle className='text-5xl piece-animation' />
                 ) : null}
               </div>
             ))}
@@ -119,8 +121,8 @@ export default function Home() {
           {winner && (
             <button
               onClick={resetGame}
-              className="px-6 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg font-bold
-                      transition-colors duration-200"
+              className='px-6 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg font-bold
+                      transition-colors duration-200'
             >
               Nuevo Juego
             </button>
@@ -134,10 +136,11 @@ export default function Home() {
       {showPopup && (
         <GamePopup
           winner={winner ? players[winner === 'X' ? 0 : 1].name : null}
-          isDraw={!winner && board.every(cell => cell !== null)}
+          isDraw={!winner && board.every((cell) => cell !== null)}
           onNewGame={resetGame}
         />
       )}
     </div>
   );
 }
+
