@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tic Tac Toe  
 
-## Getting Started
+Esta es una aplicación web desarrollada únicamente en **Next.js** y desplegada en **Vercel**. La aplicación es un juego interactivo de **Tic Tac Toe (Tres en raya)** para dos jugadores, jugable directamente en el navegador sin necesidad de backend ni base de datos.  
 
-First, run the development server:
+La aplicación se encuentra actualmente desplegada y se puede jugar en: [https://tic-tac-toe-ed.vercel.app/](https://tic-tac-toe-ed.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📖 Descripción
+Esta aplicación web permite a **dos jugadores** disfrutar del clásico juego de **Tic Tac Toe** directamente en el navegador.  
+Los jugadores se turnan para colocar sus marcas en el tablero hasta que uno gane o se produzca un empate.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+No requiere backend, todo el juego se ejecuta en el cliente usando **Next.js**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tecnologías utilizadas
+La aplicación se desarrolló utilizando las siguientes tecnologías:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js**: Framework de React para aplicaciones web. Más información en [nextjs.org](https://nextjs.org/).  
+- **React**: Biblioteca para construir interfaces de usuario. Más información en [reactjs.org](https://reactjs.org/).  
+- **Vercel**: Plataforma de despliegue y hosting. Más información en [vercel.com](https://vercel.com/).  
+- **CSS/Styled Components**: Para el diseño y la interfaz del juego.  
 
-## Learn More
+## ✨ Funcionalidades
+La aplicación web ofrece las siguientes funcionalidades:  
 
-To learn more about Next.js, take a look at the following resources:
+- Juego clásico de **Tic Tac Toe** para **dos jugadores**.  
+- Turnos automáticos y validación de movimientos.  
+- Detecta automáticamente victoria, empate o partida en curso.  
+- Interfaz interactiva y responsive, jugable en escritorio y móvil.  
+- Reinicio de partida con un solo clic.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚧 Futuras mejoras
+En el futuro, se planea implementar las siguientes mejoras:  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Mejorar la interfaz con animaciones y efectos visuales.  
+- Registrar historial de partidas y resultados.  
+- Temas de tablero personalizables.  
+- Modo multijugador online.  
 
-## Deploy on Vercel
+## 💻 Uso
+Para utilizar la aplicación en local:  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clona el repositorio en tu máquina local.  
+2. Instala las dependencias con:  
+   ```bash
+   npm install
+   ```  
+3. Inicia la aplicación con:  
+   ```bash
+   npm run dev
+   ```  
+4. Abre tu navegador web y accede a [http://localhost:3000](http://localhost:3000).  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+También puedes jugar directamente en línea: [https://tic-tac-toe-ed.vercel.app/](https://tic-tac-toe-ed.vercel.app/)
+
+## 🤝 Contribuidores
+
+* Enrique Diez Fernández
+
+## 📞 Soporte
+
+Para cualquier consulta o comentario, puedes ponerte en contacto a través del correo electrónico: [edf1003@alu.ubu.es](mailto:edf1003@alu.ubu.es)
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT.
+
+## ¡Disfruta de Tic Tac Toe! 😊
